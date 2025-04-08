@@ -1,9 +1,46 @@
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 #include "sort.h"
 #include "find.h"
 
 using namespace std;
+
+bool isValidOptionBaseArray(const char* input) {
+  static const char* validOptions[] = {
+    "-Si", "-Sinsert",
+    "-Ss", "-Sselect",
+    "-Sm", "-Sminmax",
+    "-Sw", "-Sshow",
+    "-Fl", "-Flinear",
+    "-Fb", "-Fbinary",
+    "-Fj", "-Fjump",
+    "-Ff", "-Ffibonacci",
+    "-Fi", "-Finterp",
+    "-Fe", "-Fexponential",
+  };
+
+  return ranges::any_of(
+    validOptions,
+    [input](const char* option) { return strcmp(input, option) == 0; }
+  );
+}
+
+bool isValidOptionTarget(const char* input) {
+  static const char* validOptions[] = {
+    "-Fl", "-Flinear",
+    "-Fb", "-Fbinary",
+    "-Fj", "-Fjump",
+    "-Ff", "-Ffibonacci",
+    "-Fi", "-Finterp",
+    "-Fe", "-Fexponential",
+  };
+
+  return ranges::any_of(
+    validOptions,
+    [input](const char* option) { return strcmp(input, option) == 0; }
+  );
+}
 
 int main(const int argc, char *argv[]) {
   if (argc == 1) {
@@ -20,14 +57,7 @@ int main(const int argc, char *argv[]) {
     int length;
     int* array = nullptr;
 
-    if (
-      strcmp(argv[1], "-Si") == 0 || strcmp(argv[1], "-Sinsert") == 0
-      || strcmp(argv[1], "-Ss") == 0 || strcmp(argv[1], "-Sselect") == 0
-      || strcmp(argv[1], "-Sm") == 0 || strcmp(argv[1], "-Sminmax") == 0
-      || strcmp(argv[1], "-Sw") == 0 || strcmp(argv[1], "-Sshow") == 0
-      || strcmp(argv[1], "-Fl") == 0 || strcmp(argv[1], "-Flinear") == 0
-      || strcmp(argv[1], "-Fb") == 0 || strcmp(argv[1], "-Fbinary") == 0
-    ) {
+    if ( isValidOptionBaseArray(argv[1]) ) {
       cout << "input array length: ";
       cin >> length;
 
@@ -77,10 +107,7 @@ int main(const int argc, char *argv[]) {
      *   FIND FUNCTIONS
      */
     int target;
-    if (
-      strcmp(argv[1], "-Fl") == 0 || strcmp(argv[1], "-Flinear") == 0
-      || strcmp(argv[1], "-Fb") == 0 || strcmp(argv[1], "-Fbinary") == 0
-    ) {
+    if ( isValidOptionTarget(argv[1]) ) {
       cout << "target: ";
       cin >> target;
     }
@@ -96,8 +123,32 @@ int main(const int argc, char *argv[]) {
       delete [] array;
       return 0;
     }
+
+    if (strcmp(argv[1], "-Fj") == 0 || strcmp(argv[1], "-Fjump") == 0) {
+      JumpSearch(array, length, target);
+      delete [] array;
+      return 0;
+    }
+
+    if (strcmp(argv[1], "-Ff") == 0 || strcmp(argv[1], "-Ffibonacci") == 0) {
+      FibonacciSearch(array, length, target);
+      delete [] array;
+      return 0;
+    }
+
+    if (strcmp(argv[1], "-Fi") == 0 || strcmp(argv[1], "-Finterp") == 0) {
+      InterpSearch(array, length, target);
+      delete [] array;
+      return 0;
+    }
+
+    if (strcmp(argv[1], "-Fe") == 0 || strcmp(argv[1], "-Fexponential") == 0) {
+      ExponentialSearch(array, length, target);
+      delete [] array;
+      return 0;
+    }
     /*
-     *   END SORT FUNCTIONS
+     *   END FIND FUNCTIONS
      */
 
 

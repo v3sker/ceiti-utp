@@ -15,6 +15,11 @@ struct SearchResult {
 
 void LinearSearch(const int* arr, const int& arrLength, const int& target);
 void BinarySearch(const int* arr, const int& arrLength, const int& target);
+void JumpSearch(const int* arr, const int& arrLength, const int& target);
+void FibonacciSearch(const int* arr, const int& arrLength, const int& target);
+void InterpSearch(const int* arr, const int& arrLength, const int& target);
+void ExponentialSearch(const int* arr, const int& arrLength, const int& target);
+
 void ShowSearchResults(const SearchResult &result, const std::string &searchName);
 
 
